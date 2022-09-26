@@ -1,0 +1,183 @@
+﻿@page "/hero"
+@page "/hero/{id:int}"
+@inject ISuperHeroService SuperHeroService
+
+@if (Id == null)
+{
+    <PageTitle>Create a new User</PageTitle>
+    <h3>Create a new User</h3>
+}
+else
+{
+    <PageTitle>Edit @hero.Name</PageTitle>
+    <h3>Edit @hero.Name</h3>
+}
+
+<EditForm Model="hero" OnSubmit="HandleSubmit">
+    <div class="row g-3">
+        <div class="col-lg-3">
+        <label for="id">Id</label>
+        </div>
+        <div class="col-lg-3">
+        <InputNumber id="Id" @bind-Value="hero.Id" class="form-control"></InputNumber>
+        </div>
+       <div class ="col-lg-3">
+        <label for="name">Name</label>
+
+        </div>
+        <div class="col-lg-3">
+        <InputText id="name" @bind-Value="hero.Name" class="form-control"></InputText>
+
+        </div>
+    </div>
+    <div class="row g-3">
+        <div class="col-lg-3">
+        <label for="line1">Line1</label>
+        </div>
+        <div class="col-lg-3">
+        <InputText id="line1" @bind-Value="hero.Line1" class="form-control"></InputText>
+        </div>
+        <div class="col-lg-3">
+        <label for="line2">Line2</label>
+        </div>
+        <div class="col-lg-3">
+        <InputText id="line2" @bind-Value="hero.Line2" class="form-control"></InputText>
+        </div>
+    </div>
+    <div class="row g-3">
+        <div class="col-lg-3">
+        <label for="locality">Locality</label>
+        </div>
+        <div class="col-lg-3">
+        <InputText id="locality" @bind-Value="hero.Locality" class="form-control"></InputText>
+        </div>
+        <div class="col-lg-3">
+        <label for="region">Region</label>
+        </div>
+        <div class="col-lg-3">
+        <InputText id="region" @bind-Value="hero.Region" class="form-control"></InputText>
+        </div>
+    </div>
+    <div class="row g-3">
+        <div class="col-lg-3">
+        <label for="country">Country</label>
+        </div>
+        <div class="col-lg-3">
+        <InputText id="country" @bind-Value="hero.Country" class="form-control"></InputText>
+        </div>
+        <div class="col-lg-3">
+        <label for="longitude">Longitude</label>
+        </div>
+        <div class="col-lg-3">
+        <InputNumber id="longitude" class="form-control" @bind-Value="hero.Longitude"></InputNumber>
+        </div>
+    </div>
+    <div class="row g-3">
+        <div class="col-lg-3">
+        <label for="latitude">Latitude</label>
+        </div>
+        <div class="col-lg-3">
+        <InputNumber id="latitude" @bind-Value="hero.Latitude" class="form-control"></InputNumber>
+        </div>
+    
+        <div class="col-lg-3">
+        <label for="contact">Contact</label>
+        </div>
+        <div class="col-lg-3">
+        <InputText id="contact" @bind-Value="hero.Contact" class="form-control"></InputText>
+        </div>
+    </div>
+    @*<div>
+        <label for="contactid">ContactId</label>
+        < id="contactid" @bind-Value="hero.ContactId" class="form-control"></>
+    </div>*@
+    <div class="row g-3">
+       <div class ="col-lg-3">
+        <label for="createdatutc">CreatedAtUtc</label
+        </div>
+        <div class="col-lg-3">
+        <InputDate id="createdatutc" @bind-Value="hero.CreatedAtUtc" class="form-control"></InputDate>
+        </div>
+    
+       <div class ="col-lg-3">
+        <label for="updatedatutc">UpdatedAtUtc</label>
+        </div>
+        <div class="col-lg-3">
+        <InputDate id="updatedatutc" @bind-Value="hero.UpdatedAtUtc" class="form-control"></InputDate>
+        </div>
+    </div>
+    <div class="row g-3">
+       <div class ="col-lg-3">
+        <label for="deletedatutc">DeletedAtUtc</label>
+        </div>
+        <div class="col-lg-3">
+        <InputDate id="deletedatutc" @bind-Value="hero.DeletedAtUtc" class="form-control"></InputDate>
+        </div>
+    
+       <div class ="col-lg-3">
+        <label for="email">Email</label>
+        </div>
+        <div class="col-lg-3">
+        <InputText id="email" @bind-Value="hero.Email" class="form-control"></InputText>
+        </div>
+    </div>
+   <div class="row g-3">
+       <div class ="col-lg-3">
+        <label for="salt">Salt</label>
+        </div>
+        <div class="col-lg-3">
+        <InputText id="salt" @bind-Value="hero.Salt" class="form-control"></InputText>
+        </div>
+    
+       <div class ="col-lg-3">
+        <label for="password">Password</label>
+        </div>
+        <div class="col-lg-3">
+        <InputText id="password" @bind-Value="hero.Password" class="form-control"></InputText>
+        </div>
+    </div>
+    
+
+    <br />
+    <button type="submit" class="btn btn-primary">@btnText</button>
+    <button type="button" class="btn btn-danger" @onclick="DeleteHero">Delete User</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int? Id { get; set; }
+
+    string btnText = string.Empty;
+
+    SuperHero hero = new SuperHero();
+
+    protected override async Task OnInitializedAsync()
+    {
+        btnText = Id == null ? "Save User" : "Update User";
+        await SuperHeroService.GetComics();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+       
+            hero = await SuperHeroService.GetSingleHero((int)Id);
+        
+    }
+
+    async Task HandleSubmit()
+    {
+        if (Id == null)
+        {
+            await SuperHeroService.CreateHero(hero);
+        }
+        else
+        {
+            await SuperHeroService.UpdateHero(hero);
+        }
+    }
+
+    async Task DeleteHero()
+    {
+        await SuperHeroService.DeleteHero(hero.Id);
+    }
+}
