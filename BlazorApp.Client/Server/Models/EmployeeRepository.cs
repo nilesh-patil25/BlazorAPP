@@ -82,7 +82,7 @@ namespace BlazorApp.Client.Server.Models
                 result.FirstName = employee.FirstName;
                 result.LastName = employee.LastName;
                 result.Email = employee.Email;
-                result.DateOfBrith = employee.DateOfBrith;
+                result.DateOfBirth = employee.DateOfBirth;
                 result.Gender = employee.Gender;
                 if (employee.DepartmentId != 0)
                 {

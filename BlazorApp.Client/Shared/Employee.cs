@@ -15,8 +15,10 @@ namespace BlazorApp.Client.Shared
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
         public string Email { get; set; }
-        public DateTime DateOfBrith { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public Gender Gender { get; set; }
         public int DepartmentId { get; set; }
         public string PhotoPath { get; set; }
