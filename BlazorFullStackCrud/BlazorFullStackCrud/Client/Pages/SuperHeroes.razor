@@ -1,0 +1,77 @@
+﻿@page "/superheroes"
+@inject ISuperHeroService SuperHeroService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Super Heroes</PageTitle>
+
+<h3>User</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Line1</th>
+            <th>Line2</th>
+            <th>Locality</th>
+            <th>Region</th>
+            <th>Country</th>
+            <th>Longitude</th>
+            <th>Latitude</th>
+            <th>Contact</th>
+            <th>ContactId</th>
+            <th>CreatedAtUtc</th>
+            <th>UpdatedAtUtc</th>
+            <th>DeletedAtUtc</th>
+            <th>Email</th>
+            <th>Salt</th>
+            <th>Password</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hero in SuperHeroService.Heroes)
+        {
+            <tr>
+                <td>@hero.Id</td>
+                <td>@hero.Name</td>
+                <td>@hero.Line1</td>
+                <td>@hero.Line2</td>
+                <td>@hero.Locality</td>
+                <td>@hero.Region</td>
+                <td>@hero.Country</td>
+                <td>@hero.Longitude</td>
+                <td>@hero.Latitude</td>
+                <td>@hero.Contact</td>
+                <td>@hero.ContactId</td>
+                <td>@hero.CreatedAtUtc</td>
+                <td>@hero.UpdatedAtUtc</td>
+                <td>@hero.DeletedAtUtc</td>
+                <td>@hero.Email</td>
+                <td>@hero.Salt</td>
+                <td>@hero.Password</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="(() => ShowHero(hero.Id))"><i class="oi oi-pencil"></i></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<button class="btn btn-primary" @onclick="CreateNewHero">Create New Hero</button>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await SuperHeroService.GetSuperHeroes();
+    }
+
+    void ShowHero(int id)
+    {
+        NavigationManager.NavigateTo($"hero/{id}");
+    }
+
+    void CreateNewHero()
+    {
+        NavigationManager.NavigateTo("/hero");
+    }
+}
