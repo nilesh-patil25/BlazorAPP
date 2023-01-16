@@ -6,7 +6,7 @@ Blazor is a free and open-source web framework that enables developers to create
 
 ## Architecture
 
-![Application screenshot](./projectarchitecture.png)
+![Application screenshot](./Blazorarchitecture.png)
 
 
 
