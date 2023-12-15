@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "E2RC+Xwue3zy5FYIkcXIoDpiM5VrLeOzSFazL98VFmPuTM8iqmCwYZ+dbl0vS9LXJPZSJnrAk7XyPoKf/oRGYg==",
+  "success": true,
+  "projectFilePath": "D:\\GitHub\\BlazorApp\\BlazorAppWeb\\BlazorApp.Client\\Shared\\BlazorApp.Client.Shared.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\anup.ghodake\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
