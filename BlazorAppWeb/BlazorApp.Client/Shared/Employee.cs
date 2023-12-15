@@ -10,9 +10,11 @@ namespace BlazorApp.Client.Shared
     public class Employee
     {
         public int EmployeeId { get; set; }
+
         [Required]
         [MinLength(2, ErrorMessage = "FirstName must contains at least 2 charcters")]
         public string FirstName { get; set; }
+
         [Required]
         public string LastName { get; set; }
         public string Phone { get; set; }
